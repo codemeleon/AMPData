@@ -1,6 +1,6 @@
 bio_words = [
-    "DNA", "RNA", "AIDS", "HIV", "Hepatitis C", "Hepatitis", "Pneumonia",
-    "rRNA", "Kadipiro", "PCR"
+    "DNA", "RNA", "AIDS", "HIV", "HCV", "HPV", "Hepatitis C", "Hepatitis",
+    "Pneumonia", "rRNA", "Kadipiro", "PCR", "VLPM", "WGS"
 ]
 abv = ["MAHERY"]
 species = ['Plasmodium falciparum'
@@ -27,12 +27,15 @@ def replacement_func(change):
     for change in changes:
         # print(change)
         change = change.strip()
+
         change = change.capitalize()
         if change.startswith("Aids"):
             change = change.replace("Aids", "AIDS")
         for rep in bio_words + abv + country_words + ethnicity_words + species:
             if change.startswith(rep) or " " + rep.lower() in change:
                 change = change.replace(rep.lower(), rep)
+        for rep in bio_words:
+            change = change.replace(rep.capitalize(), rep)
         tchanges.append(change)
     return " // ".join(tchanges)
 
